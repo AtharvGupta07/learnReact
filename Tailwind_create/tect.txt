@@ -1,0 +1,28 @@
+->go inside the folder where u want to install then :
+
+npm install -D tailwindcss@3 postcss autoprefixer
+npx tailwindcss init -p
+
+->Open tailwind.config.js and edit content:
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+->then:
+Open src/index.css and add:
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+->Run project
+npm run dev
