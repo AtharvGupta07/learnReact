@@ -26,3 +26,6 @@ Open src/index.css and add:
 
 ->Run project
 npm run dev
+
+->Test:
+<h1 className='bg-green-500 text-center text-3xl'>Tailwind Installed</h1>
