@@ -13,7 +13,7 @@ function Profile() {
             </>
         )
     }else{
-        return <> Welcome {user.username}</>
+        return <> Welcome {user.username}, Your Password contain "{user.password.length} characters"</>
     }
 }
 
