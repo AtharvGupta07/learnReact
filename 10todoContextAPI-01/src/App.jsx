@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ListItem from "./ListItem"
 
 function App() {
 
   const [inputText, setInputText] = useState("");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState( JSON.parse(localStorage.getItem('todos')) || [] );
+  
+
+  useEffect(()=>{
+    localStorage.setItem('todos', JSON.stringify(data));
+    console.log('data updated', data);
+    
+  },[data, toggleCheck, DeleteTask])
 
 
   function addTodo(){
@@ -14,7 +21,21 @@ function App() {
     let obj = {id_: id, msg : msg, checked: checkBox};
     setData([obj, ...data]);
     setInputText("");
-    console.log(data);
+    // console.log(data);
+  }
+
+  function DeleteTask(id){
+    for(let i = 0; i < data.length; i++){
+      setData(data.filter(todo => todo.id_ != id));
+    }
+  }
+
+  function toggleCheck(id){
+    setData(prevData => 
+      prevData.map(item =>
+        item.id_ == id? {...item, checked: !item.checked} : item
+      )
+    );
   }
 
   return(
@@ -32,7 +53,11 @@ function App() {
         <ListItem 
           key ={todo.id_}
           checked = {todo.checked}
-          msg = {todo.msg}/>
+          msg = {todo.msg}
+          DeleteTask = {() => DeleteTask(todo.id_)}
+          toggleCheck = {() => toggleCheck(todo.id_)}
+          // editTask = {() => editTask(todo.id_)}
+          />
       ))}
     
     </div>
